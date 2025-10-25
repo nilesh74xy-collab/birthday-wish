@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: radial-gradient(circle, #ffdde1, #ee9ca7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+    #page1, #page2 {
+        text-align: center;
+        width: 100%;
+        display: none;
+        padding: 20px;
+    }
+    #page1.active, #page2.active {
+        display: block;
+    }
+    input {
+        padding: 15px;
+        font-size: 20px;
+        border-radius: 10px;
+        border: none;
+        width: 260px;
+        text-align: center;
+        outline: none;
+    }
+    button {
+        margin-top: 20px;
+        padding: 16px 35px;
+        font-size: 20px;
+        background: #ff2768;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:hover {
+        transform: scale(1.07);
+    }
+    h1 {
+        font-size: 52px;
+        color: white;
+        animation: pop 1.8s infinite alternate;
+    }
+    @keyframes pop {
+        0% {transform: scale(1);}
+        100% {transform: scale(1.15);}
+    }
+    #message {
+        color: #fff;
+        font-size: 24px;
+        width: 80%;
+        margin: 0 auto;
+        line-height: 1.4;
+        opacity: 0;
+        animation: fadeIn 3s forwards;
+    }
+    @keyframes fadeIn {
+        to {opacity: 1;}
+    }
+    .balloon {
+        position: absolute;
+        width: 40px;
+        height: 55px;
+        border-radius: 50%;
+        animation: float 6s infinite ease-in-out;
+    }
+    @keyframes float {
+        0% {transform: translateY(100vh);}
+        100% {transform: translateY(-120vh);}
+    }
+    .confetti {
+        position: absolute;
+        top: -10px;
+        width: 10px;
+        height: 20px;
+        animation: fall 3.5s linear infinite;
+    }
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="active">
+    <h2>✨ Enter Your Name ✨</h2>
+    <input type="text" id="uname" placeholder="Enter Name">
+    <br>
+    <button onclick="start()">Start Celebration 🎉</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+    <h1 id="wishText"></h1>
+    <p id="message"></p>
+</div>
+
+<script>
+function start() {
+    let name = document.getElementById("uname").value;
+    if(name.trim() === ""){
+        alert("Please enter a name!");
+        return;
+    }
+
+    document.getElementById("wishText").innerHTML = "🎂 Happy Birthday " + name + "! 🎂";
+
+    let msg = `May this year bring you countless moments of joy, success, achievements, and love.  
+    Keep smiling, keep shining, and keep inspiring the people around you.  
+    You deserve every happiness in this world! 💖✨🎉`;
+    document.getElementById("message").innerHTML = msg;
+
+    document.getElementById("page1").classList.remove("active");
+    document.getElementById("page2").classList.add("active");
+
+    createConfetti();
+    createBalloons(10);
+}
+
+function createConfetti() {
+    for(let i = 0; i < 80; i++){
+        let c = document.createElement("div");
+        c.classList.add("confetti");
+        c.style.left = Math.random()*100 +"vw";
+        c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        c.style.animationDuration = (Math.random()*2+2)+"s";
+        document.body.appendChild(c);
+    }
+}
+
+function createBalloons(count) {
+    for(let i = 0; i < count; i++){
+        let b = document.createElement("div");
+        b.classList.add("balloon");
+        b.style.left = Math.random()*100 +"vw";
+        b.style.background = `hsl(${Math.random()*360},90%,60%)`;
+        b.style.animationDelay = Math.random()*3 +"s";
+        document.body.appendChild(b);
+    }
+}
+</script>
+
+</body>
+</html>
